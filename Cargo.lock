@@ -1444,6 +1444,8 @@ dependencies = [
  "actix-rt",
  "actix-web",
  "rand 0.6.5",
+ "serde",
+ "serde_json",
 ]
 
 [[package]]
