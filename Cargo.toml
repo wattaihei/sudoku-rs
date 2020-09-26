@@ -1,0 +1,16 @@
+[package]
+name = "sudoku-rs"
+version = "0.1.0"
+authors = ["wattaihei <wattaihei.rapyuta@gmail.com>"]
+edition = "2018"
+
+[lib]
+name = "sudoku"
+path = "./src/lib.rs"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+actix-web = "2.0"
+actix-rt = "1.0"
+rand = "0.6.5"
