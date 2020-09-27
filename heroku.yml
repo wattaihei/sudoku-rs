@@ -2,4 +2,4 @@ build:
     docker:
       web: Dockerfile
 run:
-    web: cli cost
+    web: /server
