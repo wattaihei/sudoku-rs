@@ -2,6 +2,7 @@ pub const BLOCKUNIT : i32 = 3;
 pub const UNIT : i32 = BLOCKUNIT*BLOCKUNIT;
 pub const BOARDSIZE : usize = (UNIT*UNIT) as usize;
 
+#[allow(dead_code)]
 pub fn print_board_probables(board_probables : &Vec<Vec<i32>>) {
     for row in 0..UNIT {
         for col in 0..UNIT {
@@ -16,6 +17,7 @@ pub fn print_board_probables(board_probables : &Vec<Vec<i32>>) {
     }
 }
 
+#[allow(dead_code)]
 pub fn print_board(board : [i32; BOARDSIZE]) {
     println!("state:");
     for row in 0..UNIT {

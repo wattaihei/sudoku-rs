@@ -1,6 +1,6 @@
 use rand::seq::SliceRandom;
-use crate::utils::*;
-use crate::sudoku_solve::solve;
+use super::utils::*;
+use super::sudoku_solve::solve;
 
 
 fn fullboard() -> [i32; BOARDSIZE] {
