@@ -1,6 +1,7 @@
 use actix_web::*;
 use serde_json::json;
 use serde::*;
+use std::env;
 mod core;
 use crate::core::sudoku_make::make;
 use crate::core::sudoku_solve::solve;
@@ -32,12 +33,16 @@ async fn index(path : web::Path<RequestParam>) -> impl Responder {
 
 #[actix_rt::main]
 async fn main() -> Result<(), actix_web::Error> {
+    let port = env::var("PORT")
+        .unwrap_or_else(|_| "3000".to_string())
+        .parse()
+        .expect("PORT must be a number");
     HttpServer::new(move || {
         App::new()
             .route("/", web::get().to(description))
             .route("/problems/{level}", web::get().to(index))
     })
-    .bind("0.0.0.0:8081")?
+    .bind(("0.0.0.0", port))?
     .run()
     .await?;
     Ok(())
