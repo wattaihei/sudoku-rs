@@ -9,10 +9,9 @@ RUN cargo build --release
 COPY ./src ./src
 RUN rm -f target/release/deps/sudoku*
 RUN cargo build --release
-# RUN cargo install --path .
 
-# CMD [ "sudoku-rs" ]
 
 FROM debian:10.4
+ENV PORT=${PORT}
 COPY --from=builder /sudoku/target/release/sudoku-rs /usr/local/bin/sudoku-rs
 CMD ["sudoku-rs"]
