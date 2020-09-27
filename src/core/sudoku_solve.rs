@@ -1,5 +1,5 @@
 use std::collections::HashSet;
-use crate::utils::*;
+use super::utils::*;
 
 
 // ブロックごとに見て、数字が一箇所しか埋められないなら埋める

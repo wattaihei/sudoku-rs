@@ -1,6 +1,11 @@
-extern crate sudoku;
-use sudoku::sudoku_solve::solve;
-use sudoku::utils::print_board;
+pub mod utils;
+pub mod sudoku_solve;
+pub mod sudoku_make;
+
+#[allow(unused_imports)]
+use self::sudoku_solve::solve;
+#[allow(unused_imports)]
+use self::utils::print_board;
 
 #[test]
 fn test_forcefully_1() {

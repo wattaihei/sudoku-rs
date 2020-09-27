@@ -1,8 +1,9 @@
 use actix_web::*;
 use serde_json::json;
 use serde::*;
-use sudoku::sudoku_make::make;
-use sudoku::sudoku_solve::solve;
+mod core;
+use crate::core::sudoku_make::make;
+use crate::core::sudoku_solve::solve;
 
 #[derive(Deserialize)]
 struct RequestParam {
@@ -30,13 +31,14 @@ async fn index(path : web::Path<RequestParam>) -> impl Responder {
 }
 
 #[actix_rt::main]
-async fn main() -> std::io::Result<()> {
-    HttpServer::new(|| {
+async fn main() -> Result<(), actix_web::Error> {
+    HttpServer::new(move || {
         App::new()
             .route("/", web::get().to(description))
             .route("/problems/{level}", web::get().to(index))
     })
-    .bind("127.0.0.1:8000")?
+    .bind("0.0.0.0:8081")?
     .run()
-    .await
+    .await?;
+    Ok(())
 }
