@@ -1,4 +1,5 @@
 use actix_web::*;
+use actix_cors::Cors;
 use serde_json::json;
 use serde::*;
 use std::env;
@@ -31,7 +32,7 @@ async fn index(path : web::Path<RequestParam>) -> impl Responder {
     HttpResponse::Ok().json(ret_json.to_string())
 }
 
-#[actix_rt::main]
+#[actix_web::main]
 async fn main() -> Result<(), actix_web::Error> {
     let port = env::var("PORT")
         .unwrap_or_else(|_| "3000".to_string())
@@ -39,8 +40,22 @@ async fn main() -> Result<(), actix_web::Error> {
         .expect("PORT must be a number");
     HttpServer::new(move || {
         App::new()
-            .route("/", web::get().to(description))
-            .route("/problems/{level}", web::get().to(index))
+            .wrap(
+                Cors::new() // <- Construct CORS middleware builder
+                .allowed_origin("http://localhost:8080")
+                .allowed_origin("https://sudoku-front.herokuapp.com")
+                .allowed_methods(vec!["GET", "POST"])
+                .allowed_headers(vec![http::header::AUTHORIZATION, http::header::ACCEPT])
+                .allowed_header(http::header::CONTENT_TYPE)
+                .max_age(3600)
+                .finish()
+            )
+            .service(web::resource("/")
+                .route(web::get().to(description))
+            )
+            .service(web::resource("/problems/{level}")
+                .route(web::get().to(index))
+            )
     })
     .bind(("0.0.0.0", port))?
     .run()
